@@ -13,14 +13,15 @@
 
 
 body{
+.hero_section{
+  background-image: url("../../public/assets/images/flower-pattern.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
-  .roboto{
-    font-family: "Roboto", sans-serif;
+  .title{
+    font-size: 74px;
   }
-  
-  .open-sans{
-    font-family: "Open Sans", sans-serif;
-  }
-
+}
  
 }
