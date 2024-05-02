@@ -14,7 +14,7 @@ const ProductSection = () => {
   return (
     <div className="container mx-auto">
       <div className="product-section">
-        <h2 className="text-center">Or subscribe to the newsletter</h2>
+        <h2 className="text-center text-5xl font-roboto font-medium mb-9">Or subscribe to the newsletter</h2>
         <div>
           <nav className="flex items-center justify-between bg-white py-7">
             <div className="flex">
@@ -22,7 +22,7 @@ const ProductSection = () => {
                 <li className="mr-5">
                   <a
                     href="#"
-                    className="text-gray-500 transition-colors duration-300 ease-in-out"
+                    className="hover:text-red-500 transition-colors duration-300 ease-in-out font-bold "
                   >
                     All Products
                   </a>
@@ -30,7 +30,7 @@ const ProductSection = () => {
                 <li className="mr-5">
                   <a
                     href="#"
-                    className="text-gray-500 transition-colors duration-300 ease-in-out"
+                    className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
                   >
                     T-Shirt
                   </a>
@@ -38,7 +38,7 @@ const ProductSection = () => {
                 <li className="mr-5">
                   <a
                     href="#"
-                    className="text-gray-500 transition-colors duration-300 ease-in-out"
+                    className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
                   >
                     Hoodies
                   </a>
@@ -46,15 +46,15 @@ const ProductSection = () => {
                 <li className="mr-5">
                   <a
                     href="#"
-                    className="text-gray-500 transition-colors duration-300 ease-in-out"
+                    className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
                   >
                     Jacket
                   </a>
                 </li>
               </ul>
             </div>
-            <button className="text-white py-2 px-4 rounded flex align-middle bg-gray-800 hover:bg-red-500">
-              <i className="fa-solid fa-filter text-lg mr-1"></i>
+            <button className="text-white py-2 px-4 rounded flex align-middle bg-gray-800 hover:bg-red-500 font-sans">
+              <i className="fa-solid fa-filter text-lg mr-1 mt-1"></i>
               Filter
             </button>
           </nav>
@@ -69,15 +69,15 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">
+                  <h5 className="text-sm tracking-tight font-sans">
                     Adicolor Classics Joggers
                   </h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$63.85</h5>
+                  <h5 className="text-sm tracking-tight font-semibold font-sans">$63.85</h5>
                 </div>
               </div>
             </div>
@@ -87,13 +87,13 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">
+                  <h5 className="text-sm tracking-tight font-sans">
                     Nike Sportswear Futura Luxe
                   </h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">Bag</h5>
-                  <h5 className="text-sm tracking-tight ">$130.00</h5>
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">Bag</h5>
+                  <h5 className="text-sm tracking-tight font-semibold font-sans">$130.00</h5>
                 </div>
               </div>
             </div>
@@ -107,15 +107,15 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">
+                  <h5 className="text-sm tracking-tight font-sans">
                     Geometric print Scarf
                   </h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Scarf
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$53.00</h5>
+                  <h5 className="text-sm tracking-tight font-semibold font-sans">$53.00</h5>
                 </div>
               </div>
             </div>
@@ -129,15 +129,20 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">
+                  <h5 className="text-sm tracking-tight font-sans">
                     Yellow Reserved Hoodie
                   </h5>
                 </a>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                <div className="mt-2 flex items-center justify-between">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$155.00</h5>
+                  <div>
+                    <span className="text-sm tracking-tight text-gray-400 mr-2 font-semibold font-sans"><del>$364.00</del></span>
+                    <span className="text-sm tracking-tight text-red-500 font-semibold font-sans">
+                      $155.00
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -153,13 +158,13 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">Basic Dress Green</h5>
+                  <h5 className="text-sm tracking-tight font-sans">Basic Dress Green</h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$236.00</h5>
+                  <h5 className="text-sm tracking-tight font-semibold font-sans">$236.00</h5>
                 </div>
               </div>
             </div>
@@ -173,15 +178,20 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">
+                  <h5 className="text-sm tracking-tight font-sans">
                     Nike Air Zoom Pegasus
                   </h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Shoes
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$198.00</h5>
+                  <div>
+                    <span className="text-sm tracking-tight text-gray-400 mr-2 font-semibold font-sans"><del>$220.00</del></span>
+                    <span className="text-sm tracking-tight text-red-500 font-semibold font-sans">
+                      $198.00
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -195,13 +205,13 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">Nike Repel Miler</h5>
+                  <h5 className="text-sm tracking-tight font-sans">Nike Repel Miler</h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$120.50</h5>
+                  <h5 className="text-sm tracking-tight font-semibold font-sans">$120.50</h5>
                 </div>
               </div>
             </div>
@@ -215,15 +225,15 @@ const ProductSection = () => {
               </a>
               <div className="mt-4 px-3 pb-5">
                 <a href="#">
-                  <h5 className="text-sm tracking-tight ">
+                  <h5 className="text-sm tracking-tight font-sans">
                     Nike Sportswear Futura Luxe
                   </h5>
                 </a>
                 <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400">
+                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Glasses
                   </h5>
-                  <h5 className="text-sm tracking-tight ">$160.00</h5>
+                  <h5 className="text-sm tracking-tight font-semibold font-sans">$160.00</h5>
                 </div>
               </div>
             </div>
