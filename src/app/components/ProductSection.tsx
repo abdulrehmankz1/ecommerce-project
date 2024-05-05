@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+import React, { ReactNode, useState } from "react";
+import { useQuery, gql } from "@apollo/client";
 import jeansProduct from "../../../public/assets/images/jeans.svg";
 import glasses from "../../../public/assets/images/glasess.svg";
 import bag from "../../../public/assets/images/bag.svg";
@@ -9,8 +11,29 @@ import sneakers from "../../../public/assets/images/shose.svg";
 import jacket from "../../../public/assets/images/jacket.svg";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+const GET_TAGS = gql`
+  query {
+    tags(shopId: "cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ==") {
+      nodes {
+        name
+        displayTitle
+        slug
+      }
+    }
+  }
+`;
 
 const ProductSection = () => {
+  const { loading, error, data } = useQuery(GET_TAGS);
+  const router = useRouter();
+  if (loading) return <p>Loading menu items...</p>;
+  if (error) return <p>Error loading menu items: {error.message}</p>;
+
+  console.log("data", data);
+
   return (
     <div className="container mx-auto">
       <div className="product-section">
@@ -22,35 +45,23 @@ const ProductSection = () => {
                 <li className="mr-5">
                   <a
                     href="#"
-                    className="hover:text-red-500 transition-colors duration-300 ease-in-out font-bold "
+                    className="hover:text-red-500 transition-colors duration-300 ease-in-out font-semibold"
                   >
                     All Products
                   </a>
                 </li>
-                <li className="mr-5">
-                  <a
-                    href="#"
-                    className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
-                  >
-                    T-Shirt
-                  </a>
-                </li>
-                <li className="mr-5">
-                  <a
-                    href="#"
-                    className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
-                  >
-                    Hoodies
-                  </a>
-                </li>
-                <li className="mr-5">
-                  <a
-                    href="#"
-                    className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
-                  >
-                    Jacket
-                  </a>
-                </li>
+                {data.tags.nodes.map((menuItem: any) => (
+                  <li key={menuItem.id} className="mr-5">
+                    <Link
+                      href={{
+                        query: { tag: menuItem.displayTitle.toLowerCase() },
+                      }}
+                      className="hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans"
+                    >
+                      {menuItem.displayTitle}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <button className="text-white py-2 px-4 rounded flex align-middle bg-gray-800 hover:bg-red-500 font-sans">
