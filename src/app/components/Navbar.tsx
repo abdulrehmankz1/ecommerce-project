@@ -26,7 +26,7 @@ const Navbar = () => {
       </div>
       <hr />
       <div className='pt-7'>
-        <ul className="flex justify-between flex-row font-base mt-0 space-x-8 rtl:space-x-reverse text-sm font-sans text-[#000000]">
+        <ul className="flex justify-between flex-row font-base mt-0 space-x-8 rtl:space-x-reverse text-base font-sans text-[#000000]">
           <li>
             <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" aria-current="page">Jewelry & Accessories</a>
           </li>
