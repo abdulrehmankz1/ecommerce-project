@@ -43,12 +43,12 @@ const ProductSection = () => {
             <div className="flex">
               <ul className="flex">
                 <li className="mr-5">
-                  <a
+                  <Link
                     href="#"
                     className="hover:text-red-500 transition-colors duration-300 ease-in-out font-semibold"
                   >
                     All Products
-                  </a>
+                  </Link>
                 </li>
                 {data.tags.nodes.map((menuItem: any) => (
                   <li key={menuItem.id} className="mr-5">
@@ -71,19 +71,19 @@ const ProductSection = () => {
           </nav>
           <div className="cards flex">
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={jeansProduct}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">
                     Adicolor Classics Joggers
                   </h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
@@ -93,15 +93,15 @@ const ProductSection = () => {
               </div>
             </div>
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image className="object-cover" src={bag} alt="product image" />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">
                     Nike Sportswear Futura Luxe
                   </h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">Bag</h5>
                   <h5 className="text-sm tracking-tight font-semibold font-sans">$130.00</h5>
@@ -109,19 +109,19 @@ const ProductSection = () => {
               </div>
             </div>
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={scarf}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">
                     Geometric print Scarf
                   </h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Scarf
@@ -131,19 +131,19 @@ const ProductSection = () => {
               </div>
             </div>
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={hoodie}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">
                     Yellow Reserved Hoodie
                   </h5>
-                </a>
+                </Link>
                 <div className="mt-2 flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
@@ -160,17 +160,17 @@ const ProductSection = () => {
           </div>
           <div className="cards flex">
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={greenDress}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">Basic Dress Green</h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
@@ -180,19 +180,19 @@ const ProductSection = () => {
               </div>
             </div>
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={sneakers}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">
                     Nike Air Zoom Pegasus
                   </h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Shoes
@@ -207,17 +207,17 @@ const ProductSection = () => {
               </div>
             </div>
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={jacket}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">Nike Repel Miler</h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Dress
@@ -227,19 +227,19 @@ const ProductSection = () => {
               </div>
             </div>
             <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <a className="relative flex overflow-hidden " href="#">
+              <Link className="relative flex overflow-hidden " href="#">
                 <Image
                   className="object-cover"
                   src={glasses}
                   alt="product image"
                 />
-              </a>
+              </Link>
               <div className="mt-4 px-3 pb-5">
-                <a href="#">
+                <Link href="#">
                   <h5 className="text-sm tracking-tight font-sans">
                     Nike Sportswear Futura Luxe
                   </h5>
-                </a>
+                </Link>
                 <div className="mt-2  flex items-center justify-between">
                   <h5 className="text-sm tracking-tight text-gray-400 font-sans">
                     Glasses

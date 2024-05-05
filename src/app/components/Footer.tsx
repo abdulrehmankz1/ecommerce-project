@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image';
 import logo from '../../../public/assets/images/logo.svg';
 import paymentsIcons from "../../../public/assets/images/icons_payment.svg"
+import Link from "next/link";
+
 
 function Footer() {
   return (
@@ -11,9 +13,9 @@ function Footer() {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 bg-[#ffffff]">
         <div className="md:flex md:justify-between mt-32 mb-20 container">
           <div className="md:w-4/12 mb-6 md:mb-0 me-14">
-            <a href="#" className="flex items-center">
+            <Link href="#" className="flex items-center">
               <Image src={logo} alt="" height="100" width="180" />
-            </a>
+            </Link>
             <p className="mt-8 text-base font-normal text-[#446d91] font-sans">
               Lorem ipsum dolor sit amet, consectetur adipiscing
               elit, sed do eiusmod tempor incididunt ut labore et
@@ -21,24 +23,24 @@ function Footer() {
             </p>
             <ul className='w-[200px] mt-8 flex justify-between align-middle'>
               <li>
-                <a href="#">
+                <Link href="#">
                   <i className="fa-brands fa-facebook-f text-xl text-[#1e2832]"></i>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#">
+                <Link href="#">
                   <i className="fa-brands fa-twitter text-xl text-[#1e2832]"></i>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#">
+                <Link href="#">
                   <i className="fa-brands fa-linkedin-in text-xl text-[#1e2832]"></i>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#">
+                <Link href="#">
                   <i className="fa-brands fa-instagram text-xl text-[#1e2832]"></i>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -47,19 +49,19 @@ function Footer() {
               <h2 className="mb-6 text-base font-semibold font-sans text-[#000000]">CATALOG</h2>
               <ul className="text-sm font-normal font-sans text-primary">
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Necklaces</a>
+                  <Link href="#" className="hover:underline">Necklaces</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">hoodies</a>
+                  <Link href="#" className="hover:underline">hoodies</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Jewelry Box</a>
+                  <Link href="#" className="hover:underline">Jewelry Box</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">t-shirt</a>
+                  <Link href="#" className="hover:underline">t-shirt</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">jacket</a>
+                  <Link href="#" className="hover:underline">jacket</Link>
                 </li>
               </ul>
             </div>
@@ -67,19 +69,19 @@ function Footer() {
               <h2 className="mb-6 text-base font-semibold font-sans text-[#000000]">ABOUT US</h2>
               <ul className="text-sm font-normal text-primary font-sans">
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Our Producers</a>
+                  <Link href="#" className="hover:underline">Our Producers</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Sitemap</a>
+                  <Link href="#" className="hover:underline">Sitemap</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">FAQ</a>
+                  <Link href="#" className="hover:underline">FAQ</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">About Us</a>
+                  <Link href="#" className="hover:underline">About Us</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Terms & Conditions</a>
+                  <Link href="#" className="hover:underline">Terms & Conditions</Link>
                 </li>
               </ul>
             </div>
@@ -87,19 +89,19 @@ function Footer() {
               <h2 className="mb-6 text-base font-semibold font-sans text-[#000000]">CUSTOMER SERVICES</h2>
               <ul className="text-sm font-normal text-primary font-sans">
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Contact Us</a>
+                  <Link href="#" className="hover:underline">Contact Us</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Track Your Order</a>
+                  <Link href="#" className="hover:underline">Track Your Order</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Product Care & Repair</a>
+                  <Link href="#" className="hover:underline">Product Care & Repair</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Book an Appointment</a>
+                  <Link href="#" className="hover:underline">Book an Appointment</Link>
                 </li>
                 <li className="mb-3">
-                  <a href="#" className="hover:underline">Shipping & Returns</a>
+                  <Link href="#" className="hover:underline">Shipping & Returns</Link>
                 </li>
               </ul>
             </div>
@@ -112,11 +114,11 @@ function Footer() {
           <span className="text-base text-white sm:text-center">© 2022 Coral , Inc.
           </span>
           <Image src={paymentsIcons} alt="" height="100" width="283" />
-          <a href="#">
+          <Link href="#">
             <span className="text-base text-white sm:text-center">Scroll to top
               <i className="fa-light fa-arrow-up text-xl ms-2"></i>
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

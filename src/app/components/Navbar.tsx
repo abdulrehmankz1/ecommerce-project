@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import logo from '../../../public/assets/images/logo.svg';
+import Link from "next/link";
 
 
 
@@ -28,22 +29,22 @@ const Navbar = () => {
       <div className='pt-7'>
         <ul className="flex justify-between flex-row font-base mt-0 space-x-8 rtl:space-x-reverse text-base font-sans text-[#000000]">
           <li>
-            <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" aria-current="page">Jewelry & Accessories</a>
+            <Link href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" aria-current="page">Jewelry & Accessories</Link>
           </li>
           <li>
-            <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Clothing & Shoes</a>
+            <Link href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Clothing & Shoes</Link>
           </li>
           <li>
-            <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Wedding & Party</a>
+            <Link href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Wedding & Party</Link>
           </li>
           <li>
-            <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Toys & Entertainment</a>
+            <Link href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Toys & Entertainment</Link>
           </li>
           <li>
-            <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Art & Collectibles</a>
+            <Link href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Art & Collectibles</Link>
           </li>
           <li>
-            <a href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Craft Supplies & Tools</a>
+            <Link href="#" className=" hover:text-red-500 transition-colors duration-300 ease-in-out" >Craft Supplies & Tools</Link>
           </li>
         </ul>
       </div>
