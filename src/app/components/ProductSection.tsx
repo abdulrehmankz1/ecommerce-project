@@ -89,7 +89,7 @@ const ProductSection = () => {
             <div className="flex">
               <ul className="flex">
                 <li className="mr-5">
-                  <Link href="/" className={`${!selectedItem ? "font-bold" : ""} hover:text-red-500 transition-colors duration-300 ease-in-out`}>
+                  <Link href="/" scroll={false} className={`${!selectedItem ? "font-bold" : ""} hover:text-red-500 transition-colors duration-300 ease-in-out`}>
                     All Products
                   </Link>
                 </li>
@@ -102,6 +102,7 @@ const ProductSection = () => {
                           pathname: selectedURL,
                           query: { tag: menuItem.slug },
                         }}
+                        scroll={false}
                         className={`${isActive ? "font-bold text-black" : ""}  hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans`}
                       >
                         {menuItem.displayTitle}
