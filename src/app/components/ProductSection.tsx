@@ -1,23 +1,29 @@
-"use client";
-import React, { ReactNode, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
-import jeansProduct from "../../../public/assets/images/jeans.svg";
-import glasses from "../../../public/assets/images/glasess.svg";
-import bag from "../../../public/assets/images/bag.svg";
-import scarf from "../../../public/assets/images/scarf.svg";
-import hoodie from "../../../public/assets/images/hoodie.svg";
-import greenDress from "../../../public/assets/images/greenDress.svg";
-import sneakers from "../../../public/assets/images/shose.svg";
-import jacket from "../../../public/assets/images/jacket.svg";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import jeansProduct from "../../../public/assets/images/bag.svg";
+import { useSearchParams } from "next/navigation";
+
+interface Tag {
+  _id: string;
+  name: string;
+  displayTitle: string;
+  slug: string;
+}
+
+interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  pricing: { displayPrice: string }[];
+}
 
 const GET_TAGS = gql`
   query {
     tags(shopId: "cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ==") {
       nodes {
+        _id
         name
         displayTitle
         slug
@@ -26,49 +32,74 @@ const GET_TAGS = gql`
   }
 `;
 
+const GET_PRODUCTS = gql`
+  query CatalogItems($shopIds: [ID!]!, $tagIds: [ID!]) {
+    catalogItems(shopIds: $shopIds, tagIds: $tagIds) {
+      edges {
+        node {
+          ... on CatalogItemProduct {
+            product {
+              _id
+              title
+              description
+              pricing {
+                displayPrice
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const ProductSection = () => {
-  const { loading, error, data } = useQuery(GET_TAGS);
-  const searchParams = useSearchParams()
+  const { loading: tagsLoading, error: tagsError, data: tagsData } = useQuery(GET_TAGS);
+  const searchParams = useSearchParams();
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedTagId, setSelectedTagId] = useState<string | null>(null);
+  const [selectedURL, setSelectedURL] = useState<string | null>(null);
 
-  if (loading) return (
-    <div className="flex items-center justify-center container mx-auto border border-gray-200 rounded-lg bg-gray-50 h-40">
-      <div role="status">
-        <svg aria-hidden="true" className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" /><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" /></svg>
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  );
-  if (error) return <p>Error loading menu items: {error.message}</p>;
+  useEffect(() => {
+    const tag = searchParams.get("tag");
+    setSelectedItem(tag);
+    setSelectedURL(window.location.pathname);
+  }, [searchParams]);
 
+  useEffect(() => {
+    if (tagsData && selectedItem) {
+      const selectedTag = tagsData.tags.nodes.find((tag: Tag) => tag.slug === selectedItem);
+      if (selectedTag) {
+        setSelectedTagId(selectedTag._id);
+      }
+    }
+  }, [tagsData, selectedItem]);
 
-  const search = searchParams.get('tag');
+  if (tagsLoading) return <p>Loading...</p>;
+  if (tagsError) return <p>Error loading data...</p>;
 
-  console.log("data", data);
-
+  const menuItems: Tag[] = tagsData.tags.nodes;
 
   return (
     <div className="container mx-auto">
       <div className="product-section">
         <h2 className="text-center text-5xl font-roboto font-medium mb-9">Or subscribe to the newsletter</h2>
         <div>
-          <nav className="flex items-center justify-between bg-white py-7">
+          <div className="flex items-center justify-between bg-white py-7">
             <div className="flex">
               <ul className="flex">
                 <li className="mr-5">
-                  <Link
-                    href="/"
-                    className={`${!search ? "font-bold" : ""
-                      } hover:text-red-500 transition-colors duration-300 ease-in-out`}
-                  >
+                  <Link href="/" className={`${!selectedItem ? "font-bold" : ""} hover:text-red-500 transition-colors duration-300 ease-in-out`}>
                     All Products
                   </Link>
                 </li>
-                {data.tags.nodes.map((menuItem: any) => {
-                  const isActive = menuItem.slug === search || (!search && menuItem.name === "All Products");
+                {menuItems.map((menuItem: Tag) => {
+                  const isActive = menuItem.slug === selectedItem || (!selectedItem && menuItem.name === "All Products");
                   return (
-                    <li key={menuItem.id} className="mr-5">
+                    <li key={menuItem._id} className="mr-5">
                       <Link
                         href={{
+                          pathname: selectedURL,
                           query: { tag: menuItem.slug },
                         }}
                         className={`${isActive ? "font-bold text-black" : ""}  hover:text-red-500 transition-colors duration-300 ease-in-out text-[#808080] font-sans`}
@@ -76,7 +107,7 @@ const ProductSection = () => {
                         {menuItem.displayTitle}
                       </Link>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </div>
@@ -84,189 +115,80 @@ const ProductSection = () => {
               <i className="fa-solid fa-filter text-lg mr-1 mt-1"></i>
               Filter
             </button>
-          </nav>
-          <div className="cards flex">
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={jeansProduct}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">
-                    Adicolor Classics Joggers
-                  </h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Dress
-                  </h5>
-                  <h5 className="text-sm tracking-tight font-semibold font-sans">$63.85</h5>
-                </div>
-              </div>
-            </div>
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image className="object-cover" src={bag} alt="product image" />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">
-                    Nike Sportswear Futura Luxe
-                  </h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">Bag</h5>
-                  <h5 className="text-sm tracking-tight font-semibold font-sans">$130.00</h5>
-                </div>
-              </div>
-            </div>
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={scarf}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">
-                    Geometric print Scarf
-                  </h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Scarf
-                  </h5>
-                  <h5 className="text-sm tracking-tight font-semibold font-sans">$53.00</h5>
-                </div>
-              </div>
-            </div>
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={hoodie}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">
-                    Yellow Reserved Hoodie
-                  </h5>
-                </Link>
-                <div className="mt-2 flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Dress
-                  </h5>
-                  <div>
-                    <span className="text-sm tracking-tight text-gray-400 mr-2 font-semibold font-sans"><del>$364.00</del></span>
-                    <span className="text-sm tracking-tight text-red-500 font-semibold font-sans">
-                      $155.00
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-          <div className="cards flex">
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={greenDress}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">Basic Dress Green</h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Dress
-                  </h5>
-                  <h5 className="text-sm tracking-tight font-semibold font-sans">$236.00</h5>
-                </div>
-              </div>
-            </div>
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={sneakers}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">
-                    Nike Air Zoom Pegasus
-                  </h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Shoes
-                  </h5>
-                  <div>
-                    <span className="text-sm tracking-tight text-gray-400 mr-2 font-semibold font-sans"><del>$220.00</del></span>
-                    <span className="text-sm tracking-tight text-red-500 font-semibold font-sans">
-                      $198.00
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={jacket}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">Nike Repel Miler</h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Dress
-                  </h5>
-                  <h5 className="text-sm tracking-tight font-semibold font-sans">$120.50</h5>
-                </div>
-              </div>
-            </div>
-            <div className="relative m-5 flex w-full max-w-[312px] flex-col overflow-hidden bg-white hover:shadow-md ">
-              <Link className="relative flex overflow-hidden " href="#">
-                <Image
-                  className="object-cover"
-                  src={glasses}
-                  alt="product image"
-                />
-              </Link>
-              <div className="mt-4 px-3 pb-5">
-                <Link href="#">
-                  <h5 className="text-sm tracking-tight font-sans">
-                    Nike Sportswear Futura Luxe
-                  </h5>
-                </Link>
-                <div className="mt-2  flex items-center justify-between">
-                  <h5 className="text-sm tracking-tight text-gray-400 font-sans">
-                    Glasses
-                  </h5>
-                  <h5 className="text-sm tracking-tight font-semibold font-sans">$160.00</h5>
-                </div>
-              </div>
+          <div className="container mx-auto">
+            <div className="cards flex">
+              {selectedItem === null && <AllProductsQueryComponent />}
+              {selectedTagId && selectedItem !== null && (
+                <ProductsQueryComponent selectedTagId={selectedTagId} />
+              )}
             </div>
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const AllProductsQueryComponent = () => {
+  const { loading, error, data } = useQuery(GET_PRODUCTS, {
+    variables: {
+      shopIds: ["cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ=="],
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data...</p>;
+
+  return (
+    <div className="container mx-auto flex flex-wrap">
+      {data.catalogItems.edges.map(({ node }: { node: { product: Product } }) => (
+        <div key={node.product._id} className="relative m-5 flex w-full max-w-[270px] flex-col overflow-hidden bg-white hover:shadow-md">
+          <Link className="relative flex overflow-hidden " href="#">
+            <Image className="object-cover" src={jeansProduct} alt="product image" />
+          </Link>
+          <div className="mt-4 px-3 pb-5">
+            <Link href="#">
+              <h5 className="text-sm tracking-tight font-bold font-sans">{node.product.title}</h5>
+            </Link>
+            <div className="mt-2">
+              <p className="text-sm tracking-tight text-gray-400 font-sans">{node.product.description}</p>
+              <h5 className="text-sm tracking-tight text-right font-sans ml-auto">{node.product.pricing[0].displayPrice}</h5>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const ProductsQueryComponent = ({ selectedTagId }: { selectedTagId: string }) => {
+  const { loading, error, data } = useQuery(GET_PRODUCTS, {
+    variables: {
+      shopIds: ["cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ=="],
+      tagIds: [selectedTagId],
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data...</p>;
+
+  return (
+    <div className="container mx-auto flex flex-wrap">
+      {data.catalogItems.edges.map(({ node }: { node: { product: Product } }) => (
+        <div key={node.product._id} className="relative m-5 flex w-full max-w-[270px] flex-col overflow-hidden bg-white hover:shadow-md">
+          <Link className="relative flex overflow-hidden " href="#">
+            <Image className="object-cover" src={jeansProduct} alt="product image" />
+          </Link>
+          <div className="mt-4 px-3 pb-5">
+            <h5 className="text-sm tracking-tight font-bold font-sans">{node.product.title}</h5>
+            <div className="mt-2">
+              <p className="text-sm tracking-tight text-gray-400 font-sans">{node.product.description}</p>
+              <h5 className="text-sm tracking-tight text-right font-sans ml-auto">{node.product.pricing[0].displayPrice}</h5>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

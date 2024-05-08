@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import HotCategory from "./components/HotCategory";
 import { ApolloProvider } from '@apollo/client';
 import client from '@/lib/client';
+import ProductList from './components/ProductList';
+import Product from './components/Product';
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
       <HeroSection />
       <HotCategory />
       <ProductSection />
+      {/* <Product /> */}
+      {/* <ProductList /> */}
       <Footer />
     </ApolloProvider>
   );
