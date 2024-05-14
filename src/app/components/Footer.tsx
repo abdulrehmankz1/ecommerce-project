@@ -4,11 +4,8 @@ import logo from '../../../public/assets/images/logo.svg';
 import paymentsIcons from "../../../public/assets/images/icons_payment.svg"
 import Link from "next/link";
 
-
 function Footer() {
   return (
-
-
     <footer>
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 bg-[#ffffff]">
         <div className="md:flex md:justify-between mt-32 mb-20 container">
@@ -107,13 +104,12 @@ function Footer() {
             </div>
           </div>
         </div>
-
       </div>
       <div className='w-full max-w-[100%] bg-[#1e2832] py-4'>
         <div className="sm:flex container mx-auto sm:items-center sm:justify-between ">
           <span className="text-base text-white sm:text-center">© 2022 Coral , Inc.
           </span>
-          <Image src={paymentsIcons} alt="" height="100" width="283" />
+          <Image src={paymentsIcons} alt="payments icons" height="100" width="283" />
           <Link href="#">
             <span className="text-base text-white sm:text-center">Scroll to top
               <i className="fa-light fa-arrow-up text-xl ms-2"></i>
@@ -122,8 +118,6 @@ function Footer() {
         </div>
       </div>
     </footer>
-
-
   )
 }
 
