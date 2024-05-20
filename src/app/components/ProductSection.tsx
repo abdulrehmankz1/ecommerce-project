@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import SkeletonLoading from "./SkeletonLoading";
 import ProductsQuery from "./ProductsQuery";
 import AllProductsQuery from "./AllProductsQuery";
-
-import { gql } from "../../../__generated__"
 
 
 interface Tag {
@@ -16,7 +14,7 @@ interface Tag {
   slug: string;
 }
 
-const GET_TAGS = gql(/* GraphQL */ `
+const GET_TAGS = gql`
   query {
     tags(shopId: "cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ==") {
       nodes {
@@ -27,7 +25,7 @@ const GET_TAGS = gql(/* GraphQL */ `
       }
     }
   }
-`);
+`;
 
 const ProductSection = () => {
   const { loading: tagsLoading, error: tagsError, data: tagsData } = useQuery(GET_TAGS);
