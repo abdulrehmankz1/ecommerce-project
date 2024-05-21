@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, DocumentNode } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import SkeletonLoading from "./SkeletonLoading";
 import ProductsQuery from "./ProductsQuery";
 import AllProductsQuery from "./AllProductsQuery";
-import { gql } from "@apollo/client";
+import { gql } from "../../../__generated__/gql";
 
 interface Tag {
   _id: string;
@@ -15,7 +15,7 @@ interface Tag {
 }
 
 const GET_TAGS = gql(/* GraphQL */ `
-  query {
+  query GetTags {
     tags(shopId: "cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ==") {
       nodes {
         _id
