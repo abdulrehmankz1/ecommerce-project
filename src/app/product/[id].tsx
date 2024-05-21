@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useQuery, gql } from "@apollo/client";
 import Image from 'next/image';
-import SkeletonLoading from '../SkeletonLoading';
+import SkeletonLoading from '../components/SkeletonLoading';
 
 export interface Variant {
   _id: string;
