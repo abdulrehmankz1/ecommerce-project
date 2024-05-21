@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, DocumentNode } from "@apollo/client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import SkeletonLoading from "./SkeletonLoading";
 import ProductsQuery from "./ProductsQuery";
 import AllProductsQuery from "./AllProductsQuery";
-
-import { gql } from "../../../__generated__"
-
+import { gql } from "@apollo/client";
 
 interface Tag {
   _id: string;
@@ -61,7 +59,7 @@ const ProductSection = () => {
               <div className="flex">
                 <ul className="flex">
                   <li className="mr-5">
-                    <Link href="/" scroll={false}  className={`${!selectedItem ? "font-normal" : ""} hover:text-red-500 transition-colors duration-300 ease-in-out`}>
+                    <Link href="/" scroll={false} className={`${!selectedItem ? "font-normal" : ""} hover:text-red-500 transition-colors duration-300 ease-in-out`}>
                       All Products
                     </Link>
                   </li>
@@ -141,7 +139,5 @@ const ProductSection = () => {
     </div>
   );
 };
-
-<><AllProductsQuery /><ProductsQuery selectedTagId={""} /></>
 
 export default ProductSection;

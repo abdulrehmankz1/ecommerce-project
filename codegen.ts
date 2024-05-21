@@ -1,16 +1,15 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'schema.graphql',
-  // this assumes that all your source files are in a top-level `src/` directory - you might need to adjust this to your file structure
-  documents: ['src/app/**/*.{ts,tsx}'],
+  schema: 'https://explore-btk-opencommerce-apis.ceultnteo3kpk.ap-southeast-1.cs.amazonlightsail.com/graphql',
+  documents: ['src/**/*.{graphql,js,ts,jsx,tsx}'],
   generates: {
-    './__generated__/': {
-      preset: 'client',
-      plugins: [],
-      presetConfig: {
-        gqlTagName: 'gql',
-      }
+    './__generated__/graphql/': {
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-react-apollo'
+      ]
     }
   },
   ignoreNoDocuments: true,
