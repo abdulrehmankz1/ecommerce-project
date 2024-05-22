@@ -12,7 +12,7 @@ interface Product {
   pricing: { displayPrice: string }[];
 }
 
-const GET_PRODUCTS = gql`
+const GET_PRODUCTS = gql( /* GraphQL */ `
   query CatalogItems($shopIds: [ID!]!, $tagIds: [ID!]) {
     catalogItems(shopIds: $shopIds, tagIds: $tagIds) {
       edges {
@@ -31,7 +31,7 @@ const GET_PRODUCTS = gql`
       }
     }
   }
-`;
+`);
 
 const ProductsQuery = ({ selectedTagId }: { selectedTagId: string }) => {
   const { loading, error, data } = useQuery(GET_PRODUCTS, {

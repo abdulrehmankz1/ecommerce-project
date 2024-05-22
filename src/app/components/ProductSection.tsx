@@ -41,8 +41,8 @@ const ProductSection = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (tagsData && selectedItem) {
-      const selectedTag = tagsData.tags.nodes.find((tag: Tag) => tag.slug === selectedItem);
+    if (tagsData?.tags?.nodes && selectedItem) {
+      const selectedTag = tagsData.tags.nodes.find((tag): tag is Tag => tag !== null && tag.slug === selectedItem);
       if (selectedTag) {
         setSelectedTagId(selectedTag._id);
       }
@@ -87,7 +87,7 @@ const ProductSection = () => {
   }
   if (tagsError) return <p>Error loading data...</p>;
 
-  const menuItems: Tag[] = tagsData.tags.nodes;
+  const menuItems: Tag[] = tagsData?.tags?.nodes?.filter((tag): tag is Tag => tag !== null) || [];
 
   return (
     <div className="container mx-auto">
@@ -108,7 +108,7 @@ const ProductSection = () => {
                     <li key={menuItem._id} className="mr-5">
                       <Link
                         href={{
-                          pathname: selectedURL,
+                          pathname: selectedURL || '/',
                           query: { tag: menuItem.slug },
                         }}
                         scroll={false}

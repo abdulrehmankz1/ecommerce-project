@@ -4,6 +4,7 @@ import React from 'react'
 import SkeletonLoading from './SkeletonLoading';
 import { useQuery, gql } from "@apollo/client";
 import jeansProduct from "../../../public/assets/images/bag.svg";
+// import { gql } from '../../../__generated__/gql';
 
 interface Product {
   _id: string;
@@ -12,7 +13,7 @@ interface Product {
   pricing: { displayPrice: string }[];
 }
 
-const GET_PRODUCTS = gql`
+const GET_PRODUCTS = gql( /* GraphQL */ `
   query CatalogItems($shopIds: [ID!]!, $tagIds: [ID!]) {
     catalogItems(shopIds: $shopIds, tagIds: $tagIds) {
       edges {
@@ -23,7 +24,14 @@ const GET_PRODUCTS = gql`
               title
               description
               pricing {
+                maxPrice
                 displayPrice
+              }
+              media {
+                URLs {
+                  original
+                  thumbnail
+                }
               }
             }
           }
@@ -31,7 +39,8 @@ const GET_PRODUCTS = gql`
       }
     }
   }
-`;
+`);
+
 
 
 const AllProductsQuery = () => {
