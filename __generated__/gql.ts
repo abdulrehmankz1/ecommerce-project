@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query CatalogItems($shopIds: [ID!]!, $tagIds: [ID!]) {\n    catalogItems(shopIds: $shopIds, tagIds: $tagIds) {\n      edges {\n        node {\n          ... on CatalogItemProduct {\n            product {\n              _id\n              title\n              description\n              pricing {\n                displayPrice\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n": types.CatalogItemsDocument,
+    "\n  query GetProduct($shopId: ID!, $slugOrId: String!) {\n    catalogItemProduct(shopId: $shopId, slugOrId: $slugOrId ) {\n      product {\n        _id\n        title\n        description\n        primaryImage {\n          URLs {\n            medium\n          }\n        }\n        variants {\n          _id\n          title\n          attributeLabel\n          optionTitle\n          pricing {\n            displayPrice\n            currency {\n              code\n            }\n          }\n        }\n      }\n    }\n  }\n": types.GetProductDocument,
 };
 
 /**
@@ -34,6 +35,10 @@ export function gql(source: string): unknown;
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query CatalogItems($shopIds: [ID!]!, $tagIds: [ID!]) {\n    catalogItems(shopIds: $shopIds, tagIds: $tagIds) {\n      edges {\n        node {\n          ... on CatalogItemProduct {\n            product {\n              _id\n              title\n              description\n              pricing {\n                displayPrice\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query CatalogItems($shopIds: [ID!]!, $tagIds: [ID!]) {\n    catalogItems(shopIds: $shopIds, tagIds: $tagIds) {\n      edges {\n        node {\n          ... on CatalogItemProduct {\n            product {\n              _id\n              title\n              description\n              pricing {\n                displayPrice\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetProduct($shopId: ID!, $slugOrId: String!) {\n    catalogItemProduct(shopId: $shopId, slugOrId: $slugOrId ) {\n      product {\n        _id\n        title\n        description\n        primaryImage {\n          URLs {\n            medium\n          }\n        }\n        variants {\n          _id\n          title\n          attributeLabel\n          optionTitle\n          pricing {\n            displayPrice\n            currency {\n              code\n            }\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetProduct($shopId: ID!, $slugOrId: String!) {\n    catalogItemProduct(shopId: $shopId, slugOrId: $slugOrId ) {\n      product {\n        _id\n        title\n        description\n        primaryImage {\n          URLs {\n            medium\n          }\n        }\n        variants {\n          _id\n          title\n          attributeLabel\n          optionTitle\n          pricing {\n            displayPrice\n            currency {\n              code\n            }\n          }\n        }\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
