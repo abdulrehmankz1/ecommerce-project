@@ -11,11 +11,9 @@ import client from '@/lib/client';
 export default function Home() {
   return (
     <ApolloProvider client={client}>
-      <Navbar />
       <HeroSection />
       <HotCategory />
       <ProductSection />
-      <Footer />
     </ApolloProvider>
   );
 }
