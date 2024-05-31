@@ -1,6 +1,6 @@
 const nextConfig = {
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['explore-btk-opencommerce-apis.ceultnteo3kpk.ap-southeast-1.cs.amazonlightsail.com'],
   },
 };
 
