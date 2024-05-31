@@ -8,6 +8,7 @@ import jeansProduct from "../../../public/assets/images/bag.svg";
 interface Product {
   _id: string;
   title: string;
+  slug: string;
   description: string;
   pricing: { displayPrice: string }[];
 }
@@ -19,6 +20,7 @@ const GET_PRODUCTS = gql`
         node {
           ... on CatalogItemProduct {
             product {
+              slug
               _id
               title
               description
@@ -48,7 +50,7 @@ const ProductsQuery = ({ selectedTagId }: { selectedTagId: string }) => {
     <div className="container mx-auto flex flex-wrap">
       {data.catalogItems.edges.map(({ node }: { node: { product: Product } }) => (
         <div key={node.product._id} className="relative m-5 flex w-full max-w-[270px] flex-col overflow-hidden bg-white hover:shadow-md">
-          <Link className="relative flex overflow-hidden " href="#">
+           <Link className="relative flex overflow-hidden" href={`/products/${node.product.slug}`}>
             <Image className="object-cover" src={jeansProduct} alt="product image" />
           </Link>
           <div className="mt-4 px-3 pb-5">
