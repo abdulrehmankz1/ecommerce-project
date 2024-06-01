@@ -1,9 +1,11 @@
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 import SkeletonLoading from './SkeletonLoading';
 import { useQuery, gql } from "@apollo/client";
-import jeansProduct from "../../../public/assets/images/bag.svg";
+import dummyImage from "../../../public/assets/images/dummy-image.png";
+import "../../styles/globals.scss";
 
 interface Product {
   _id: string;
@@ -11,6 +13,13 @@ interface Product {
   slug: string;
   description: string;
   pricing: { displayPrice: string }[];
+  primaryImage: {
+    URLs: {
+      medium: string;
+      small: string;
+      original: string;
+    };
+  };
 }
 
 const GET_PRODUCTS = gql`
@@ -24,6 +33,11 @@ const GET_PRODUCTS = gql`
               _id
               title
               description
+              primaryImage {
+                URLs {
+                  original
+                }
+              }
               pricing {
                 displayPrice
               }
@@ -48,21 +62,25 @@ const ProductsQuery = ({ selectedTagId }: { selectedTagId: string }) => {
 
   return (
     <div className="container mx-auto flex flex-wrap">
-      {data.catalogItems.edges.map(({ node }: { node: { product: Product } }) => (
-        <div key={node.product._id} className="relative m-5 flex w-full max-w-[270px] flex-col overflow-hidden bg-white hover:shadow-md">
-           <Link className="relative flex overflow-hidden" href={`/products/${node.product.slug}`}>
-            <Image className="object-cover" src={jeansProduct} alt="product image" />
-          </Link>
-          <div className="mt-4 px-3 pb-5">
-            <h5 className="text-sm tracking-tight font-bold font-sans">{node.product.title}</h5>
-            <div className="mt-2">
-              <h5 className="text-sm tracking-tight text-right font-sans ml-auto">{node.product.pricing[0].displayPrice}</h5>
+      {data.catalogItems.edges.map(({ node }: { node: { product: Product } }) => {
+        const imageUrl = node.product.primaryImage?.URLs?.original || dummyImage;
+
+        return (
+          <div key={node.product._id} className="relative m-5 flex w-full max-w-[270px] flex-col overflow-hidden bg-white hover:shadow-md">
+            <Link className="relative flex overflow-hidden" href={`/products/${node.product.slug}`}>
+              <Image className="object-cover" src={imageUrl} alt="product image" width={270} height={270} />
+            </Link>
+            <div className="mt-4 px-3 pb-5">
+              <h5 className="text-sm tracking-tight font-bold font-sans">{node.product.title}</h5>
+              <div className="mt-2">
+                <h5 className="text-sm tracking-tight text-right font-sans ml-auto">{node.product.pricing[0].displayPrice}</h5>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
 
-export default ProductsQuery
+export default ProductsQuery;
