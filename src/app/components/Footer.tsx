@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
-import logo from '../../../public/assets/images/logo.svg';
+import logo from '../../../public/assets/images/ecommerce-logo-1.png';
 import paymentsIcons from "../../../public/assets/images/icons_payment.svg"
 import Link from "next/link";
 
