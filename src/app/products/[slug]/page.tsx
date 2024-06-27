@@ -1,92 +1,17 @@
 "use client";
-import { useQuery, gql } from "@apollo/client";
-import client from '@/lib/client';
 import { useParams } from 'next/navigation';
-import "../../../styles/globals.scss";
 import Image from "next/image";
 import dummyImage from "../../../../public/assets/images/dummy-image.png";
-import { useState, useEffect } from "react";
 import SkeletonLoading from "./SkeletonLoading";
-
-interface Pricing {
-  displayPrice: string;
-}
-
-interface Variant {
-  _id: string;
-  title: string;
-  attributeLabel: string;
-  optionTitle: string;
-  pricing: Pricing[];
-}
-
-interface Product {
-  _id: string;
-  title: string;
-  description: string;
-  pricing: Pricing[];
-  primaryImage: {
-    URLs: {
-      medium: string;
-      small: string;
-      original: string;
-    };
-  };
-  variants: Variant[];
-}
-
-const GET_PRODUCT_DETAILS = gql`
-  query GetProduct($shopId: ID!, $slugOrId: String!) {
-    catalogItemProduct(shopId: $shopId, slugOrId: $slugOrId) {
-      product {
-        _id
-        title
-        description
-        pricing {
-          displayPrice
-        }
-        primaryImage {
-          URLs {
-            medium
-            small
-            original
-          }
-        }
-        variants {
-          _id
-          title
-          attributeLabel
-          optionTitle
-          pricing {
-            displayPrice
-            currency {
-              code
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+import { Variant } from "../../components/types";
+import useProductDetails from '@/app/hooks/useProductDetails';
 
 const ProductDetails = () => {
   const { slug } = useParams();
-  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
 
-  const { loading, error, data } = useQuery<{ catalogItemProduct: { product: Product } }>(GET_PRODUCT_DETAILS, {
-    variables: {
-      shopId: "cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ==",
-      slugOrId: slug,
-    },
-    client: client,
-    skip: !slug,
-  });
+  const productSlug = Array.isArray(slug) ? slug[0] : slug;
 
-  useEffect(() => {
-    if (data && data.catalogItemProduct && data.catalogItemProduct.product && data.catalogItemProduct.product.variants.length > 0) {
-      setSelectedVariant(data.catalogItemProduct.product.variants[0]);
-    }
-  }, [data]);
+  const { loading, error, data, selectedVariant, setSelectedVariant } = useProductDetails(productSlug);
 
   if (loading) return <SkeletonLoading />;
   if (error) return <p>Error loading data...</p>;
@@ -136,10 +61,7 @@ const ProductDetails = () => {
               {product.variants.map((variant) => (
                 <button
                   key={variant._id}
-                  className={`border p-2 rounded ${selectedVariant?._id === variant._id
-                    ? "bg-black text-white transition duration-300"
-                    : ""
-                    }`}
+                  className={`border p-2 rounded ${selectedVariant?._id === variant._id ? "bg-black text-white transition duration-300" : ""}`}
                   onClick={() => handleVariantSelect(variant)}
                 >
                   {variant.optionTitle}
