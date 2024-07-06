@@ -1,9 +1,11 @@
-"use client";
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import Image from 'next/image';
-import logo from '../../../public/assets/images/ecommerce-logo-1.png';
 import Link from 'next/link';
-import MenuItem from './MenuItem';
+
+import MenuItem from "@/app/components/MenuItem";
+
+import logo from '../../../public/assets/images/ecommerce-logo-1.png';
 
 const menuItems = [
   { text: "Jewelry & Accessories", href: "#" },
@@ -15,20 +17,42 @@ const menuItems = [
 ];
 
 function Navbar() {
-  const handleMenuItemClick = () => {
-    console.log('Select Menu Item');
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
   };
 
   return (
-    <div className="container mx-auto pt-8">
-      <div className="w-full inline-flex pb-6">
-        <i className="fa-solid fa-magnifying-glass text-xl" style={{ display: 'flex', alignItems: "center" }}></i>
-        <div className="flex items-center justify-center" style={{ position: "relative", left: "42%" }}>
-          <Link href={"/"}>
-            <Image src={logo} alt="Logo" height="100" width="180" className='mx-auto' />
-          </Link>
+    <div className="container mx-auto pt-8 relative">
+      <div className="flex items-center justify-between pb-6">
+        <div className="flex items-center">
+          {!searchOpen && (
+            <i
+              className="fa-solid fa-magnifying-glass text-xl cursor-pointer mr-4"
+              onClick={toggleSearch}
+            ></i>
+          )}
+          {searchOpen && (
+            <div className="flex justify-center items-center">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="border-2 border-gray-300 p-2 rounded-md focus:outline-none"
+              />
+              <button
+                className="ml-2 text-gray-400 hover:text-gray-600"
+                onClick={toggleSearch}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
-        <div className="flex items-center ms-auto">
+        <Link href={"/"} className="absolute left-1/2 transform -translate-x-1/2">
+          <Image src={logo} alt="Logo" height="100" width="180" />
+        </Link>
+        <div className="flex items-center">
           <button className="flex items-center justify-center hover:text-red-500 transition-colors duration-300 ease-in-out">
             <i className="fa-solid fa-user mr-2 text-xl text-[#072b4b]"></i>
             <p className="font-roboto font-normal text-lg text-[#072b4b]">Account</p>
@@ -49,11 +73,9 @@ function Navbar() {
               variant="primary"
               slug={''}
               isActive={false}
-              onClick={handleMenuItemClick}
             />
           ))}
         </ul>
-      
       </div>
     </div>
   );
