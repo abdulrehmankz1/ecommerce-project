@@ -15,6 +15,7 @@
     "@apollo/experimental-nextjs-app-support": "^0.10.0",
     "@fontsource/open-sans": "^5.0.28",
     "@fontsource/roboto": "^5.0.13",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "graphql": "^16.8.1",
     "next": "14.2.3",
     "react": "^18.3.1",
