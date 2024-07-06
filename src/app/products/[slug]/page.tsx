@@ -1,10 +1,12 @@
 "use client";
 import { useParams } from 'next/navigation';
 import Image from "next/image";
-import dummyImage from "../../../../public/assets/images/dummy-image.png";
-import SkeletonLoading from "./SkeletonLoading";
-import { Variant } from "../../components/types";
+
+import { Variant } from "@/app/components/types";
 import useProductDetails from '@/app/hooks/useProductDetails';
+import SkeletonLoading from "@/app/products/[slug]/SkeletonLoading";
+
+import dummyImage from "../../../../public/assets/images/dummy-image.png";
 
 const ProductDetails = () => {
   const { slug } = useParams();
