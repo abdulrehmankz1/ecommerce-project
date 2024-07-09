@@ -1,5 +1,4 @@
-import { gql } from '../../__generated__/gql';
-
+import { gql } from "@apollo/client";
 
 export const GET_PRODUCTS = gql(/* GraphQL */ `
   query CatalogItemProduct($shopIds: [ID!]!, $tagIds: [ID!]) {
