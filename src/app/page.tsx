@@ -12,12 +12,9 @@ import { useGetProducts } from "@/app/hooks/useGetProducts";
 import { useGetTags } from "@/app/hooks/useGetTags";
 import { Tag } from "@/app/components/types";
 
-import graphicStudio from "../../public/assets/images/brand-1.svg";
-import salvaArt from "../../public/assets/images/brand-2.svg";
-import goldenStudio from "../../public/assets/images/brand-3.svg";
-import furnitureDesign from "../../public/assets/images/brand-4.svg";
-import travel from "../../public/assets/images/brand-5.svg";
 import banner from "../../public/assets/images/image-product.svg";
+import shoppingBag from "../../public/assets/images/shopping-bag-2.svg";
+import filter from "../../public/assets/images/filter.svg";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -34,17 +31,21 @@ export default function Home() {
     ["cmVhY3Rpb24vc2hvcDpGN2ZrM3plR3o4anpXaWZzQQ=="],
     selectedTagId
   );
+
   useEffect(() => {
     setSelectedTagId(null);
     if ((!slug && !tagsData) || slug === "all-products") return;
 
-    const selectedTag = tagsData.tags.nodes.find(
-      (tag: Tag) => tag.slug === slug
-    );
-    if (!selectedTag) return;
-
-    setSelectedTagId(selectedTag._id);
+    if (tagsData) {
+      const selectedTag = tagsData.tags.nodes.find(
+        (tag: Tag) => tag.slug === slug
+      );
+      if (selectedTag) {
+        setSelectedTagId(selectedTag._id);
+      }
+    }
   }, [tagsData, slug]);
+
   if (tagsError || error) return <p>Error loading data...</p>;
 
   return (
@@ -61,7 +62,7 @@ export default function Home() {
                 brands here.
               </p>
               <button className="flex align-middle font-roboto text-2xl bg-[#1e2832] text-white py-5 px-7 hover:bg-red-500 transition-colors duration-300 ease-in-out">
-                <i className="fa-solid fa-bag-shopping mr-2 text-2xl mt-[2px]"></i>
+                <Image src={shoppingBag} alt="shopping bag" className="m-2 my-0" height={28} width={28} />
                 Shop Now
               </button>
             </div>
@@ -75,30 +76,6 @@ export default function Home() {
               />
             </div>
           </div>
-        </div>
-      </section>
-      <section className="container mx-auto">
-        <div className="flex justify-around align-middle my-20">
-          <Image
-            src={graphicStudio}
-            alt="graphicStudio"
-            height="70"
-            width="200"
-          />
-          <Image src={salvaArt} alt="salvaArt" height="70" width="200" />
-          <Image
-            src={goldenStudio}
-            alt="goldenStudio"
-            height="70"
-            width="200"
-          />
-          <Image
-            src={furnitureDesign}
-            alt="furnitureDesign"
-            height="70"
-            width="200"
-          />
-          <Image src={travel} alt="travel" height="70" width="200" />
         </div>
       </section>
       <section className="container mx-auto">
@@ -116,8 +93,8 @@ export default function Home() {
                         href="/"
                         scroll={false}
                         className={`${!selectedTagId || selectedTagId === "all-products"
-                            ? "font-bold"
-                            : ""
+                          ? "font-bold"
+                          : ""
                           } hover:text-red-500 text-[#000000] transition-colors duration-300 ease-in-out`}
                       >
                         All Products
@@ -130,7 +107,7 @@ export default function Home() {
                         </li>
                       ))
                       : menuItems.map((menuItem) => {
-                        const isActive = menuItem.slug === selectedTagId;
+                        const isActive = menuItem._id === selectedTagId;
                         return (
                           <MenuItem
                             key={menuItem._id}
@@ -144,7 +121,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <button className="text-white py-2 px-4 rounded flex align-middle bg-gray-800 hover:bg-red-500 font-sans">
-                  <i className="fa-solid fa-filter text-lg mr-1 mt-1"></i>
+                  <Image src={filter} alt="filter" height={25} width={25} className="mr-1" />
                   Filter
                 </button>
               </div>
