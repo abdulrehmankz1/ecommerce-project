@@ -74,4 +74,3 @@ export const GET_PRODUCT_DETAILS = gql(/* GraphQL */ `
     }
   }
 `);
-
