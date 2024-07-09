@@ -1,20 +1,11 @@
-"use client"
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-import MenuItem from "@/app/components/MenuItem";
-
-import logo from '../../../public/assets/images/ecommerce-logo-1.png';
-
-const menuItems = [
-  { text: "Jewelry & Accessories", href: "#" },
-  { text: "Clothing & Shoes", href: "#" },
-  { text: "Wedding & Party", href: "#" },
-  { text: "Toys & Entertainment", href: "#" },
-  { text: "Art & Collectibles", href: "#" },
-  { text: "Craft Supplies & Tools", href: "#" }
-];
+import logo from "../../../public/assets/images/ecommerce-logo-1.png";
+import search from "../../../public/assets/images/search.svg";
+import user from "../../../public/assets/images/user.svg";
+import shoppingBag from "../../../public/assets/images/shopping-bag.svg";
 
 function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -28,10 +19,14 @@ function Navbar() {
       <div className="flex items-center justify-between pb-6">
         <div className="flex items-center">
           {!searchOpen && (
-            <i
-              className="fa-solid fa-magnifying-glass text-xl cursor-pointer mr-4"
+            <Image
+              src={search}
+              alt="search"
+              className="m-0 cursor-pointer"
+              height={22}
+              width={22}
               onClick={toggleSearch}
-            ></i>
+            />
           )}
           {searchOpen && (
             <div className="flex justify-center items-center">
@@ -49,34 +44,40 @@ function Navbar() {
             </div>
           )}
         </div>
-        <Link href={"/"} className="absolute left-1/2 transform -translate-x-1/2">
+        <Link
+          href={"/"}
+          className="absolute left-1/2 transform -translate-x-1/2"
+        >
           <Image src={logo} alt="Logo" height="100" width="180" />
         </Link>
         <div className="flex items-center">
           <button className="flex items-center justify-center hover:text-red-500 transition-colors duration-300 ease-in-out">
-            <i className="fa-solid fa-user mr-2 text-xl text-[#072b4b]"></i>
-            <p className="font-roboto font-normal text-lg text-[#072b4b]">Account</p>
+            <Image
+              src={user}
+              alt="user"
+              className="my-0 mr-1 cursor-pointer"
+              height={22}
+              width={22}
+            />
+            <p className="font-roboto font-normal text-lg text-[#072b4b]">
+              Account
+            </p>
           </button>
           <button className="flex items-center justify-center ml-4 hover:text-red-500 transition-colors duration-300 ease-in-out">
-            <i className="fa-solid fa-bag-shopping mr-2 text-xl text-[#072b4b]"></i>
-            <p className="font-roboto font-normal text-lg text-[#072b4b]">Shopping</p>
+            <Image
+              src={shoppingBag}
+              alt="shopping bag"
+              className="my-0 mr-1 cursor-pointer"
+              height={22}
+              width={22}
+            />
+            <p className="font-roboto font-normal text-lg text-[#072b4b]">
+              Shopping
+            </p>
           </button>
         </div>
       </div>
       <hr />
-      <div className='pt-7'>
-        <ul className="flex justify-between">
-          {menuItems.map((item, index) => (
-            <MenuItem
-              key={index}
-              text={item.text}
-              variant="primary"
-              slug={''}
-              isActive={false}
-            />
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }
