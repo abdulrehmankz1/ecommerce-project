@@ -81,7 +81,7 @@ export default function Home() {
       <section className="container mx-auto">
         <div className="product-section">
           <h2 className="text-center text-5xl font-roboto font-medium mb-9">
-            Or subscribe to the newsletter
+          Discover Our Product Collections
           </h2>
           <div>
             <div className="container">
