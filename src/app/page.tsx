@@ -48,7 +48,7 @@ export default function Home() {
   if (tagsError || error) return <p>Error loading data...</p>;
 
   return (
-    <div >
+    <div>
       <section className="hero_section pt-20 pb-16">
         <div className="container mx-auto px-5">
           <div className="grid grid-cols-2 ">
@@ -106,26 +106,24 @@ export default function Home() {
                         All Products
                       </Link>
                     </li>
-                    {tagsLoading ? (
-                      [...Array(9)].map((_, index) => (
-                        <li key={index} className="mr-5">
-                          <div className="font-sans bg-gray-200 h-6 w-20 animate-pulse"></div>
-                        </li>
-                      ))
-                    ) : (
-                      menuItems.map((menuItem) => {
-                        const isActive = menuItem._id === selectedTagId;
-                        return (
-                          <MenuItem
-                            key={menuItem._id}
-                            text={menuItem.displayTitle}
-                            slug={menuItem.slug}
-                            variant="primary"
-                            isActive={isActive}
-                          />
-                        );
-                      })
-                    )}
+                    {tagsLoading
+                      ? [...Array(9)].map((_, index) => (
+                          <li key={index} className="mr-5">
+                            <div className="font-sans bg-gray-200 h-6 w-20 animate-pulse"></div>
+                          </li>
+                        ))
+                      : menuItems.map((menuItem) => {
+                          const isActive = menuItem._id === selectedTagId;
+                          return (
+                            <MenuItem
+                              key={menuItem._id}
+                              text={menuItem.displayTitle}
+                              slug={menuItem.slug}
+                              variant="primary"
+                              isActive={isActive}
+                            />
+                          );
+                        })}
                   </ul>
                 </div>
                 <button className="text-white py-2 px-4 rounded flex align-middle bg-gray-800 hover:bg-red-500 font-sans">
