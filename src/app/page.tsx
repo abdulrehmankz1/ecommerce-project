@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -15,6 +14,12 @@ import { Tag } from "@/app/components/types";
 import banner from "../../public/assets/images/image-product.svg";
 import shoppingBag from "../../public/assets/images/shopping-bag-2.svg";
 import filter from "../../public/assets/images/filter.svg";
+
+const LoadingSpinner = () => (
+  <div className="spinner">
+    <p>Loading...</p>
+  </div>
+);
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -55,14 +60,20 @@ export default function Home() {
           <div className="grid grid-cols-2 ">
             <div className="pt-14">
               <h2 className="title font-roboto font-light text-[#072b4b]">
-                Collections
+                Explore Food
               </h2>
               <p className="font-roboto text-[#072b4b] text-3xl my-8">
-                you can explore and shop many different collections from various
+                Discover and explore a variety of collections from different
                 brands here.
               </p>
               <button className="flex align-middle font-roboto text-2xl bg-[#1e2832] text-white py-5 px-7 hover:bg-red-500 transition-colors duration-300 ease-in-out">
-                <Image src={shoppingBag} alt="shopping bag" className="m-2 my-0" height={28} width={28} />
+                <Image
+                  src={shoppingBag}
+                  alt="shopping bag"
+                  className="m-2 my-0"
+                  height={28}
+                  width={28}
+                />
                 Shop Now
               </button>
             </div>
@@ -81,7 +92,7 @@ export default function Home() {
       <section className="container mx-auto">
         <div className="product-section">
           <h2 className="text-center text-5xl font-roboto font-medium mb-9">
-          Discover Our Product Collections
+            Discover Our Product Collections
           </h2>
           <div>
             <div className="container">
@@ -92,21 +103,23 @@ export default function Home() {
                       <Link
                         href="/"
                         scroll={false}
-                        className={`${!selectedTagId || selectedTagId === "all-products"
-                          ? "font-bold"
-                          : ""
-                          } hover:text-red-500 text-[#000000] transition-colors duration-300 ease-in-out`}
+                        className={`${
+                          !selectedTagId || selectedTagId === "all-products"
+                            ? "font-bold"
+                            : ""
+                        } hover:text-red-500 text-[#000000] transition-colors duration-300 ease-in-out`}
                       >
                         All Products
                       </Link>
                     </li>
-                    {tagsLoading
-                      ? [...Array(9)].map((_, index) => (
+                    {tagsLoading ? (
+                      [...Array(9)].map((_, index) => (
                         <li key={index} className="mr-5">
                           <div className="font-sans bg-gray-200 h-6 w-20 animate-pulse"></div>
                         </li>
                       ))
-                      : menuItems.map((menuItem) => {
+                    ) : (
+                      menuItems.map((menuItem) => {
                         const isActive = menuItem._id === selectedTagId;
                         return (
                           <MenuItem
@@ -117,11 +130,18 @@ export default function Home() {
                             isActive={isActive}
                           />
                         );
-                      })}
+                      })
+                    )}
                   </ul>
                 </div>
                 <button className="text-white py-2 px-4 rounded flex align-middle bg-gray-800 hover:bg-red-500 font-sans">
-                  <Image src={filter} alt="filter" height={25} width={25} className="mr-1" />
+                  <Image
+                    src={filter}
+                    alt="filter"
+                    height={25}
+                    width={25}
+                    className="mr-1"
+                  />
                   Filter
                 </button>
               </div>
