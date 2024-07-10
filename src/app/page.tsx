@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -14,12 +14,6 @@ import { Tag } from "@/app/components/types";
 import banner from "../../public/assets/images/image-product.svg";
 import shoppingBag from "../../public/assets/images/shopping-bag-2.svg";
 import filter from "../../public/assets/images/filter.svg";
-
-const LoadingSpinner = () => (
-  <div className="spinner">
-    <p>Loading...</p>
-  </div>
-);
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -54,7 +48,7 @@ export default function Home() {
   if (tagsError || error) return <p>Error loading data...</p>;
 
   return (
-    <div>
+    <div >
       <section className="hero_section pt-20 pb-16">
         <div className="container mx-auto px-5">
           <div className="grid grid-cols-2 ">
