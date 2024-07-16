@@ -71,15 +71,17 @@ This is a Next.js e-commerce web application built with TypeScript and Tailwind 
 │ │ └── [slug]/
 │ │ ├── page.tsx
 │ │ └── SkeletonLoading.tsx
-│ │ ├── pages.tsx
-│ │ ├── layout.tsx
-│ │ ├── queries.tsx
+│ │ └── products/
+│ │ └── [slug].tsx
+│ ├── pages.tsx
+│ ├── layout.tsx
+│ ├── queries.tsx
 │ ├── lib/
 │ │ ├── apollo-wrapper.tsx
 │ │ └── client.tsx
 │ └── styles/
 │ └── globals.scss
-├── README.md  
+├── README.md
 └── LICENSE
 
 ## Usage
