@@ -45,43 +45,6 @@ This is a Next.js e-commerce web application built with TypeScript and Tailwind 
    ```
 
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-## Project Structure
-
-├── public/
-│   └── assets/
-│       └── images/
-│           ├── image-product.svg
-│           ├── shopping-bag-2.svg
-│           └── filter.svg
-├── src/
-│   ├── app/
-│   │   ├── components/
-│   │   │   ├── Card.tsx
-│   │   │   ├── MenuItem.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── types.tsx
-│   │   │   └── SkeletonLoading.tsx
-│   │   ├── hooks/
-│   │   │   ├── useGetProducts.tsx
-│   │   │   ├── useGetTags.tsx
-│   │   │   └── useProductDetails.tsx
-│   │   └── products/
-│   │       └── [slug]/
-│   │           ├── page.tsx
-│   │           └── SkeletonLoading.tsx
-│   │       └── products/
-│   │           └── [slug].tsx
-│   ├── pages.tsx
-│   ├── layout.tsx
-│   ├── queries.tsx
-│   ├── lib/
-│   │   ├── apollo-wrapper.tsx
-│   │   └── client.tsx
-│   └── styles/
-│       └── globals.scss
-├── README.md
-└── LICENSE
 
 ## Usage
 
