@@ -11,8 +11,6 @@ import { useGetProducts } from "@/app/hooks/useGetProducts";
 import { useGetTags } from "@/app/hooks/useGetTags";
 import { Tag } from "@/app/components/types";
 
-import banner from "../../public/assets/images/image-product.svg";
-import shoppingBag from "../../public/assets/images/shopping-bag-2.svg";
 import filter from "../../public/assets/images/filter.svg";
 
 export default function Home() {
@@ -49,41 +47,7 @@ export default function Home() {
 
   return (
     <div>
-      <section className="hero_section pt-20 pb-16">
-        <div className="container mx-auto px-5">
-          <div className="grid grid-cols-2 ">
-            <div className="pt-14">
-              <h2 className="title font-roboto font-light text-[#072b4b]">
-                Explore Food
-              </h2>
-              <p className="font-roboto text-[#072b4b] text-3xl my-8">
-                Discover and explore a variety of collections from different
-                brands here.
-              </p>
-              <button className="flex align-middle font-roboto text-2xl bg-[#1e2832] text-white py-5 px-7 hover:bg-red-500 transition-colors duration-300 ease-in-out">
-                <Image
-                  src={shoppingBag}
-                  alt="shopping bag"
-                  className="m-2 my-0"
-                  height={28}
-                  width={28}
-                />
-                Shop Now
-              </button>
-            </div>
-            <div className="p-4">
-              <Image
-                src={banner}
-                alt=""
-                height="550"
-                width="445"
-                className="mx-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="container mx-auto">
+      <section className="container mx-auto mt-12">
         <div className="product-section">
           <h2 className="text-center text-5xl font-roboto font-medium mb-9">
             Discover Our Product Collections
