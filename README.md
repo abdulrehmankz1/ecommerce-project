@@ -140,4 +140,4 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ## Live Demo
 
-Check out the live demo of this project [here](hhttps://ecommerce-project-mu-six.vercel.app).
+Check out the live demo of this project [here](https://ecommerce-project-mu-six.vercel.app).
