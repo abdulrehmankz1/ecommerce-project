@@ -4,6 +4,7 @@ import "../styles/globals.scss";
 import { ApolloWrapper } from "../lib/apollo-wrrapper";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { CartProvider } from "@/app/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        <ApolloWrapper>
-          {children}
-        </ApolloWrapper>
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          <ApolloWrapper>{children}</ApolloWrapper>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
