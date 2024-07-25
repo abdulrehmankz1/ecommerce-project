@@ -16,6 +16,8 @@
     "@fontsource/open-sans": "^5.0.28",
     "@fontsource/roboto": "^5.0.13",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
     "graphql": "^16.8.1",
     "next": "14.2.3",
     "react": "^18.3.1",
