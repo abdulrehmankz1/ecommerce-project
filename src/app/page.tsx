@@ -13,7 +13,7 @@ import { Tag } from "@/app/components/types";
 
 import filter from "../../public/assets/images/filter.svg";
 
-export default function Home() {
+const Home = () => {
   const searchParams = useSearchParams();
   const [selectedTagId, setSelectedTagId] = useState<string | null>(null);
   const slug = searchParams.get("tag");
@@ -124,4 +124,5 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+export default Home;
