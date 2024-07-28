@@ -6,6 +6,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import cartPlaceholder from "../../../public/assets/images/dummy-image.png";
 import { useCart } from '../context/CartContext';
 import { CartItem } from '../context/CartContext';
+import Link from 'next/link';
 
 interface CartModalProps {
   open: boolean;
@@ -63,7 +64,7 @@ const CartModal: React.FC<CartModalProps> = ({ open, onClose }) => {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                <Dialog.Panel className="pointer-events-auto w-screen max-w-lg">
                   <div className="flex h-screen flex-col bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
@@ -80,7 +81,6 @@ const CartModal: React.FC<CartModalProps> = ({ open, onClose }) => {
                           </button>
                         </div>
                       </div>
-
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
@@ -88,13 +88,13 @@ const CartModal: React.FC<CartModalProps> = ({ open, onClose }) => {
                               const itemSubtotal = getItemSubtotal(item);
                               return (
                                 <li key={item.id} className="flex py-6">
-                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                  <div className="h-[100px] w-[110px] flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <Image
                                       src={item.product.primaryImage?.URLs?.original || cartPlaceholder}
                                       alt={item.product.title}
                                       className="h-full w-full object-center"
-                                      width={96}
-                                      height={96}
+                                      width={100}
+                                      height={100}
                                     />
                                   </div>
                                   <div className="ml-4 flex flex-1 flex-col">
@@ -112,7 +112,7 @@ const CartModal: React.FC<CartModalProps> = ({ open, onClose }) => {
                                       <div className="flex">
                                         <button
                                           type="button"
-                                          className="font-medium text-[black]"
+                                          className="font-medium text-white shadow-xl w-full bg-[#0d6efd] p-1 rounded-md text-xs"
                                           onClick={() => handleRemoveItem(item.id)}
                                         >
                                           Remove
@@ -129,10 +129,9 @@ const CartModal: React.FC<CartModalProps> = ({ open, onClose }) => {
                     </div>
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
-                        <p>Subtotal</p>
+                        <p>Total Amount</p>
                         <p>Rs. {getTotalPrice(state.items)}</p>
                       </div>
-                      <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
                         <a
                           href="#"
@@ -144,14 +143,14 @@ const CartModal: React.FC<CartModalProps> = ({ open, onClose }) => {
                       <div className="mt-6 flex justify-center text-center text-sm text-black">
                         <p>
                           or{' '}
-                          <button
-                            type="button"
+                          <Link
+                            href={'/'}
                             onClick={onClose}
                             className="font-medium text-black"
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>
-                          </button>
+                          </Link>
                         </p>
                       </div>
                     </div>
