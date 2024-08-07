@@ -1,98 +1,197 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { IoSearch, IoCartOutline, IoClose } from "react-icons/io5";
+import { IoMdHeartEmpty } from "react-icons/io";
 import CartModal from "./CartModal";
-
+import { useCart } from "../context/CartContext";
+import FavoriteModal from "./FavoriteModal"; // Ensure this is a default export
 import logo from "../../../public/assets/images/ecommerce-logo-1.png";
-import search from "../../../public/assets/images/search.svg";
-import user from "../../../public/assets/images/user.svg";
-import shoppingBag from "../../../public/assets/images/shopping-bag.svg";
-import { useCart } from "@/app/context/CartContext";
+import { useFavorites } from "../context/FavoriteContext";
 
-function Navbar() {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+  const [favoriteModalOpen, setFavoriteModalOpen] = useState(false);
   const { state } = useCart();
-  const [prevCartCount, setPrevCartCount] = useState(state.items.length);
-  const [animateBadge, setAnimateBadge] = useState(false);
+  const { state: favoritesState } = useFavorites();
 
-  const toggleSearch = () => {
-    setSearchOpen(!searchOpen);
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  const handleAddToCartNotification = (message: string) => {
-    setToastMessage(message);
+  const toggleCartModal = () => {
+    setCartModalOpen(!cartModalOpen);
   };
 
-  useEffect(() => {
-    if (state.items.length > prevCartCount) {
-      setAnimateBadge(true);
-      setTimeout(() => setAnimateBadge(false), 300); // Duration of the animation
-    }
-    setPrevCartCount(state.items.length);
-  }, [state.items.length, prevCartCount]);
+  const toggleFavoriteModal = () => {
+    setFavoriteModalOpen(!favoriteModalOpen);
+  };
 
   return (
-    <div className="container mx-auto pt-8 relative">
-      <div className="flex items-center justify-between pb-6">
-        <div className="flex items-center">
-          {!searchOpen && (
-            <Image
-              src={search}
-              alt="search"
-              className="m-0 cursor-pointer"
-              height={22}
-              width={22}
-              onClick={toggleSearch}
-            />
-          )}
-          {searchOpen && (
-            <div className="flex justify-center items-center">
+    <div className="">
+      <nav className="bg-white border-gray-200 mt-5 px-3 border-b-2">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <Link
+            href="/"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <Image src={logo} alt="" height={60} width={200} />
+          </Link>
+          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <div className="relative w-[220px] me-4">
               <input
                 type="text"
-                placeholder="Search..."
-                className="border-2 border-gray-300 p-2 rounded-md focus:outline-none"
+                placeholder="What are you looking for?"
+                className="w-full h-[40px] text-[#7a7a7a] ps-5 py-2 pe-10 bg-[#f5f5f5] rounded nav-input me-4"
               />
-              <button
-                className="ml-2 text-gray-400 hover:text-gray-600"
-                onClick={toggleSearch}
-              >
-                Cancel
-              </button>
+              <IoSearch className="absolute right-5 top-1/2 transform -translate-y-1/2 text-[#7a7a7a]" />
             </div>
-          )}
-        </div>
-        <Link href={"/"} className="absolute left-1/2 transform -translate-x-1/2">
-          <Image src={logo} alt="Logo" height="100" width="180" />
-        </Link>
-        <div className="flex items-center relative">
-          <button className="flex items-center justify-center hover:text-red-500 transition-colors duration-300 ease-in-out">
-            <Image src={user} alt="user" className="my-0 mr-1 cursor-pointer" height={22} width={22} />
-            <p className="font-roboto font-normal text-lg text-[#072b4b]">Account</p>
-          </button>
-          <button
-            className="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center"
-            onClick={() => setCartOpen(true)}
-          >
-            <Image src={shoppingBag} alt="shopping bag" className="my-0 mr-2 cursor-pointer" height={22} width={22} />
-            <p className="font-roboto font-normal text-lg">Shopping</p>
-            {state.items.length > 0 && (
-              <span
-                className={`absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-white bg-black rounded-full ${animateBadge ? "animate-badgeAnimation" : ""
-                  }`}
+            <button
+              onClick={toggleFavoriteModal}
+              className="relative cursor-pointer"
+            >
+              <IoMdHeartEmpty className="text-3xl flex self-center heart-icon" />
+              {favoritesState.items.length > 0 && (
+                <span className="absolute top-[2px] right-3.5 bg-red-600 text-white text-xs rounded-full px-1">
+                  {favoritesState.items.length}
+                </span>
+              )}
+            </button>
+            <button
+              className="relative cursor-pointer"
+              onClick={toggleCartModal}
+            >
+              <IoCartOutline className="text-3xl" />
+              {state.items.length > 0 && (
+                <span className="absolute top-0 -right-1 bg-red-600 text-white text-xs rounded-full px-1">
+                  {state.items.length}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={toggleMobileMenu}
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-cta"
+              aria-expanded={mobileMenuOpen ? "true" : "false"}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
               >
-                {state.items.length}
-              </span>
-            )}
-          </button>
-          <CartModal open={cartOpen} onClose={() => setCartOpen(false)} />
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            className={`${mobileMenuOpen ? "block" : "hidden"
+              } md:block items-center justify-between w-full md:w-auto md:order-1`}
+            id="navbar-cta"
+          >
+            <ul className="hidden md:flex flex-col md:flex-row font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/"
+                  className="relative block py-2 px-3 md:p-0 text-black"
+                  aria-current="page"
+                >
+                  Home
+                </Link>
+              </li>
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/contact"
+                  className="relative block py-2 px-3 md:p-0 text-black"
+                  aria-current="page"
+                >
+                  Contact
+                </Link>
+              </li>
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/about"
+                  className="relative block py-2 px-3 md:p-0 text-black"
+                  aria-current="page"
+                >
+                  About
+                </Link>
+              </li>
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/signup"
+                  className="relative block py-2 px-3 md:p-0 text-black"
+                  aria-current="page"
+                >
+                  Sign Up
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <hr />
+      </nav>
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 flex">
+          <div className="bg-white w-64 h-full shadow-lg p-4">
+            <button onClick={toggleMobileMenu} className="text-xl mb-4">
+              <IoClose />
+            </button>
+            <ul className="flex flex-col space-y-4">
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/"
+                  className="relative block py-2 px-3 text-black"
+                  aria-current="page"
+                >
+                  Home
+                </Link>
+              </li>
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/contact"
+                  className="relative block py-2 px-3 text-black"
+                  aria-current="page"
+                >
+                  Contact
+                </Link>
+              </li>
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/about"
+                  className="relative block py-2 px-3 text-black"
+                  aria-current="page"
+                >
+                  About
+                </Link>
+              </li>
+              <li className="transition duration-300 ease-in-out hover:underline">
+                <Link
+                  href="/signup"
+                  className="relative block py-2 px-3 text-black"
+                  aria-current="page"
+                >
+                  Sign Up
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
+      <CartModal open={cartModalOpen} onClose={toggleCartModal} />
+      <FavoriteModal open={favoriteModalOpen} onClose={toggleFavoriteModal} />
     </div>
   );
-}
+};
 
 export default Navbar;
